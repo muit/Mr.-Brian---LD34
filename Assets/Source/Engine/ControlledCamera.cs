@@ -6,7 +6,7 @@ namespace Crab {
     public class ControlledCamera : MonoBehaviour {
         public Transform target;
 
-        public float targetHeight = 2.0f;
+        public Vector3 targetOffset = new Vector3(0, 2.0f, 0);
         [Header("Distance")]
         public float zoom = 5.0f;
         public float maxDistance = 20;
@@ -46,14 +46,15 @@ namespace Crab {
 
             targetMovement = target.GetComponent<CMovement>();
             camera = GetComponent<Camera>();
+
         }
 
         void LateUpdate() {
             if (!target)
                 return;
 
-            if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
-            {
+            //if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
+            //{
                 x += Input.GetAxis("Mouse X") * xSpeed * 0.02f;
                 y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
 
@@ -62,9 +63,9 @@ namespace Crab {
                 direction.y = 0;
                 targetMovement.viewDirection = direction.normalized;
 
-
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
+            /*
             }
             else
             {
@@ -78,7 +79,7 @@ namespace Crab {
                     float currentRotationAngle = transform.eulerAngles.y;
                     x = Mathf.LerpAngle(currentRotationAngle, targetRotationAngle, rotationDampening * Time.deltaTime);
                 }
-            }
+            }*/
 
 
             y = ClampAngle(y, yMinLimit, yMaxLimit);
@@ -87,8 +88,10 @@ namespace Crab {
 
             zoom -= (Input.GetAxis("Mouse ScrollWheel") * Time.deltaTime) * zoomRate * Mathf.Abs(zoom);
             zoom = Mathf.Clamp(zoom, minDistance, maxDistance);
-
-            expectedDistance = GetRayCastDistance(expectedDistance);
+            if (zoom != 0)
+            {
+                expectedDistance = GetRayCastDistance(expectedDistance);
+            }
             expectedDistance = Mathf.Clamp(expectedDistance, 0.0f, zoom);
 
             if (realDistance < expectedDistance)
@@ -96,7 +99,7 @@ namespace Crab {
             else
                 realDistance = expectedDistance;
 
-            transform.position = target.position - (transform.rotation * Vector3.forward * (realDistance) + new Vector3(0, -targetHeight, 0));
+            transform.position = target.position - (transform.rotation * Vector3.forward * (realDistance) - targetOffset);
         }
 
         static float ClampAngle(float angle, float min, float max) {
@@ -109,7 +112,7 @@ namespace Crab {
 
         private float GetRayCastDistance(float distance) {
             RaycastHit hit;
-            Vector3 targetPos = target.position + new Vector3(0, targetHeight, 0);
+            Vector3 targetPos = target.position + targetOffset;
 
             Vector3[] corners = new Vector3[4];
             corners[0] = camera.ViewportToWorldPoint(new Vector3(1, 1, camera.nearClipPlane)) - transform.position;
