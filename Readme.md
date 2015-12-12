@@ -1,11 +1,2 @@
-# Crab Framework for Unity
-
-## What is Crab?
-A simple and usefull framework to act as a base of any project or game.
-
-The lack of basic libraries in Unity for Gameplay, AI and game structure in general slows the game development process but adds a lot of freedom to it. Thats why Crab fixes this issue with simple to use tools on the same packet.
-
-## What this is not:
-- Non-Programming Unity Extension.
-- Set of libraries
-- Level editor extension
+# LudumDare 34 - Mr. Brian
+Mr. Brian is a 3d Voxel Game for the LudumDare 34 Compo
