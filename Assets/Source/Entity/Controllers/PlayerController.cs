@@ -10,6 +10,8 @@ namespace Crab.Controllers
     public class PlayerController : EntityController
     {
         private CMovement movement;
+        public Animator greenButton;
+        public Animator blueButton;
         void Awake()
         {
             me = GetComponent<Entity>();
@@ -18,27 +20,24 @@ namespace Crab.Controllers
 
         void Update()
         {
-            float h = Input.GetAxis("Horizontal");
-            float v = Input.GetAxis("Vertical");
-
-            movement.Move(h, v);
-
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            //Green Button
+            if (Input.GetKeyDown(KeyCode.Q))
             {
-                movement.StartSprint();
+                greenButton.SetBool("pressed", true);
             }
-            else if (Input.GetKeyUp(KeyCode.LeftShift))
+            else if (Input.GetKeyUp(KeyCode.Q))
             {
-                movement.StopSprint();
+                greenButton.SetBool("pressed", false);
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftControl))
+            //Blue Button
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                movement.StartCrouching();
+                blueButton.SetBool("pressed", true);
             }
-            else if (Input.GetKeyUp(KeyCode.LeftControl))
+            else if (Input.GetKeyUp(KeyCode.E))
             {
-                movement.StopCrouching();
+                blueButton.SetBool("pressed", false);
             }
         }
     }
