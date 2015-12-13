@@ -1,6 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum ButtonType {
+    GREEN,
+    BLUE
+}
+
+public struct ButtonDecideResult {
+    public ButtonType type;
+    public Main.Events eventId;
+}
 
 public class Button : MonoBehaviour {
     private Animator anim;
@@ -9,7 +18,10 @@ public class Button : MonoBehaviour {
 
     public KeyCode key;
     public bool locked = true;
-    public Main.Events eventId;
+    public ButtonType buttonType;
+
+    private Main.Events eventId;
+
 
     void Start() {
         anim = GetComponent<Animator>();
@@ -23,8 +35,10 @@ public class Button : MonoBehaviour {
             {
                 anim.SetTrigger("pressed");
                 clip.Play();
-
-                (Main.Instance as Main).SendMessage("OnEvent", (int)eventId);
+                ButtonDecideResult result = new ButtonDecideResult();
+                result.eventId = eventId;
+                result.type = buttonType;
+                (Main.Instance as Main).SendMessage("OnDecide", result);
             }
         }
     }
