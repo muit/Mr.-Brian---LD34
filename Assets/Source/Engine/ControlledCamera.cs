@@ -31,9 +31,27 @@ namespace Crab {
         private float y = 0.0f;
         private float expectedDistance = 5.0f;
         private float realDistance = 5.0f;
+        private bool mouseLocked = true;
 
         private CMovement targetMovement;
         new private Camera camera;
+
+
+        public void LockMouse(bool value)
+        {
+            mouseLocked = value;
+            if (value)
+            {
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+            else
+            {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
+        }
+
 
         void Start() {
             Vector3 angles = transform.eulerAngles;
@@ -46,11 +64,13 @@ namespace Crab {
 
             targetMovement = target.GetComponent<CMovement>();
             camera = GetComponent<Camera>();
-
         }
 
         void LateUpdate() {
             if (!target)
+                return;
+
+            if (!mouseLocked)
                 return;
 
             //if (Input.GetMouseButton(0) || Input.GetMouseButton(1))

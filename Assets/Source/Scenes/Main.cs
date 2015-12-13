@@ -26,6 +26,7 @@ public class Main : SceneScript {
     public Light consoleLight;
     public FloodLight greenLight;
     public FloodLight blueLight;
+    public Crab.Event HUD;
 
     [Space()]
     public Console console;
@@ -56,7 +57,21 @@ public class Main : SceneScript {
         events.Update();
 
         if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (!HUD.IsStarted())
+            {
+                HUD.StartEvent();
+            }
+            else
+            {
+                HUD.FinishEvent();
+            }
+        }
+    }
 
+    void OnApplicationFocus(bool status) {
+        if (!status)
+        {
+            HUD.StartEvent();
         }
     }
 
@@ -85,7 +100,7 @@ public class Main : SceneScript {
                 greenHelp.enabled = true;
                 blueHelp.enabled = true;
 
-                events.RegistryEvent((int)Events.GREETINGS_NO_ANSWER, 5000);
+                events.RegistryEvent((int)Events.GREETINGS_NO_ANSWER, 9000);
                 break;
                 
 
@@ -112,7 +127,7 @@ public class Main : SceneScript {
             case Events.EXAMPLE1:
                 console.Write("Anyway, lets start.", 150);
                 console.Write("");
-                console.Write("Judge Nº241");
+                console.Write("Judge Mr. Brian (Nº241)");
                 console.Write("");
                 console.Write("");
                 break;
