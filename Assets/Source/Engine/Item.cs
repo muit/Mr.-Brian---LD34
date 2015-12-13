@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
+
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 namespace Crab
 {
@@ -72,6 +75,7 @@ namespace Crab
 }
 
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(Crab.Item))]
 public class ItemEditor : Editor
 {
@@ -130,3 +134,4 @@ public class ItemEditor : Editor
         }
     }
 }
+#endif
