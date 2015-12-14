@@ -105,7 +105,7 @@ public class Main : SceneScript
             case Events.PRESENTATION:
                 playerLight.TurnOn();
                 consoleLight.enabled = true;
-                events.RegistryEvent((int)Events.GREETINGS, 1000);
+                events.RegistryEvent((int)Events.GREETINGS, 3000);
                 break;
 
             case Events.GREETINGS:
@@ -122,7 +122,7 @@ public class Main : SceneScript
                 UnlockButtons(Events.GREETINGS_ANSWER, "Good Morning", "Hey");
                 blueHelp.enabled = true;
                 greenHelp.enabled = true;
-                events.RegistryEvent((int)Events.GREETINGS_NO_ANSWER, 9000);
+                events.RegistryEvent((int)Events.GREETINGS_NO_ANSWER, 14000);
                 break;
 
 
@@ -242,14 +242,15 @@ public class Main : SceneScript
                     console.Write("Maybe he could have done a better job with more budget.", 150);
                     console.Write("Mr. Bender was always very greedy.", 150);
                     console.Write("He always wanted to have more money... now he is dead.", 150);
-                    events.RegistryEvent((int)Events.CASE_2, 10000);
+                    events.RegistryEvent((int)Events.CASE_2, 14000);
                 }
                 else
                 {
                     console.Write("So your choose is Mr. Bender", 100);
                     console.Write("He was also my choose Mr.Brian! ", 100);
                     console.Write("But Mr.Bender died. It's true that the cottage was cheap but...", 100);
-                    console.Write("He only wanted the best for his family. He worked so hard for it.", 100);
+                    console.Write("He only wanted the best for his family.");
+                    console.Write("He worked so hard for it.", 100);
                     events.RegistryEvent((int)Events.CASE_2, 14000);
                 }
 
@@ -273,7 +274,7 @@ public class Main : SceneScript
                 {
                     //The Justice
                     console.Write("Correct! Exactly!", 100);
-                    console.Write("But the kid never went to the space.", 150);
+                    console.Write("But the kid never went to space.", 150);
                     events.RegistryEvent((int)Events.FINAL, 4000);
                 }
                 SpawnRandom();
@@ -286,15 +287,16 @@ public class Main : SceneScript
                 if (type == ButtonType.GREEN)
                 {
                     //The Kid
-                    console.Write("Mmmm You are different subject.");
-                    events.RegistryEvent((int)Events.FINAL, 3000);
+                    console.Write("Impressive.");
+                    console.Write("You are a special subject...", 100);
+                    events.RegistryEvent((int)Events.FINAL, 4000);
                 }
                 else
                 {
                     //The Justice
-                    console.Write("Correct! Exactly!");
-                    console.Write("But the kid never went to the space.");
-                    events.RegistryEvent((int)Events.FINAL, 4000);
+                    console.Write("Correct! Exactly!", 100);
+                    console.Write("But the kid never went the space.");
+                    events.RegistryEvent((int)Events.FINAL, 6000);
                 }
                 SpawnRandom();
                 break;
