@@ -3,7 +3,10 @@ using System.Collections;
 
 public class GameOver : MonoBehaviour {
 	
-	void Start () {
+	void Start ()
+	{
+		AudioListener.pause = false;
+		Time.timeScale = 1;
 		Console console = FindObjectOfType<Console>();
 		console.Write("GAME OVER", 75);
 		console.Write("Hope you liked this small LudumDare34 Compo game.", 75);
